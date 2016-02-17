@@ -50,11 +50,11 @@ alert(janeDoe.sayName());
 function Person(firstName, lastName) {
   this.firstName = firstName;
   this.lastName = lastName;
-  
+
   // this.sayName = function() {
   //   return "My name is " + this.firstName + " " + this.lastName;
   // }
-  
+
   // This method consumes extra memory because every time a new Person is created, a new sayName function is created with it, this also creates an inheritance problem.
 }
 // To solve this we need to use a prototype function outside the Person function.
@@ -97,10 +97,10 @@ function extend(target) {
   if (!arguments[1]){
     return;
   }
-  
+
   for (var ii = 0, ll = arguments.length; ii < ll; ii++){
     var source = arguments[ii];
-    
+
     for (var prop in source) {
       if (!target[prop] && source.hasOwnProperty(prop)) {
         target[prop] = source[prop];
@@ -173,17 +173,139 @@ mixin(toggle, toolbar.items[0], "toggleActiveState");
 /*###################################################################################################*/
 
 // The Decorator Pattern
+// This pattern allows us to add extra functionality to an object, but the key thing to remember is that it does not change the interface of that object.
+
+// Without inheritance
 
 function Coffee() {
-  
+
 }
 
 Coffee.prototype.cost = function() {
   return 5;
 };
 
-function small(coffeeObj) {
-  
-}
+Coffee.small = function(coffeeObj) {
+  var cost = soffeeObj.cost();
+
+  coffeeObj.cost = function() {
+    return cost - 1;
+  };
+};
+
+Coffee.medium = function(coffeeObj) {
+
+};
+
+Coffee.large = function(coffeeObj) {
+  var cost = soffeeObj.cost();
+
+  coffeeObj.cost = function() {
+    return cost + 1;
+  };
+};
+
+Coffee.sugar = function(coffeeObj) {
+  var cost = soffeeObj.cost();
+
+  coffeeObj.cost = function() {
+    return cost + .15;
+  };
+};
+
+Coffee.creamer = function(coffeeObj) {
+  var cost = soffeeObj.cost();
+
+  coffeeObj.cost = function() {
+    return cost + .15;
+  };
+};
+
+Coffee.whippedCream = function(coffeeObj) {
+  var cost = soffeeObj.cost();
+
+  coffeeObj.cost = function() {
+    return cost + .15;
+  };
+};
+
+Coffee.milk = function(coffeeObj) {
+  var cost = soffeeObj.cost();
+
+  coffeeObj.cost = function() {
+    return cost + .15;
+  };
+};
+Coffee.foam = function(coffeeObj) {
+  var cost = soffeeObj.cost();
+
+  coffeeObj.cost = function() {
+    return cost + .15;
+  };
+};
+Coffee.chocolate = function(coffeeObj) {
+  var cost = soffeeObj.cost();
+
+  coffeeObj.cost = function() {
+    return cost + .15;
+  };
+};
+
+Coffee.mocha = function(coffeeObj) {
+  Coffee.milk(coffeeObj);
+  Coffee.foam(coffeeObj);
+  Coffee.chocolate(coffeeObj);
+
+  var cost = coffeeObj.cost();
+
+  coffeeObj.cost = function() {
+      return cost;
+  }
+};
 
 var coffee = new Coffee();
+var mocha = new Coffee();
+
+// With inheritance
+function Beverage() {
+  this._cost = 0;
+}
+
+Beverage.prototype.cost = function() {
+  return this._cost;
+}
+
+function BeverageDecorator(beverage) {
+  Beverage.call(this);
+  this.beverage = beverage;
+}
+
+BeverageDecorator.prototype = Object.create(Beverage.prototype);
+BeverageDecorator.prototype.cost = function() {
+  return this._cost + this.beverage.cost();
+};
+
+funciton Small(beverage) {
+  BeverageDecorator.call(this, beverage);
+  this._cost = -1;
+}
+
+Small.prototype = Object.create(BeverageDecorator.prototype);
+
+funciton Sugar(beverage) {
+  BeverageDecorator.call(this, beverage);
+  this._cost = .15;
+}
+
+Sugar.prototype = Object.create(BeverageDecorator.prototype);
+
+function Coffee() {
+  Beverage.call(this);
+  this._cost = 5;
+}
+
+Coffee.prototype = Object.create(Beverage.prototype);
+
+var coffee = new Coffee();
+coffee = var Small(coffee);
+coffee = var Sugar(coffee);

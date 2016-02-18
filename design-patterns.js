@@ -178,7 +178,7 @@ mixin(toggle, toolbar.items[0], "toggleActiveState");
 // Without inheritance
 
 function Coffee() {
-
+  // This constructor is left empty on purpose
 }
 
 Coffee.prototype.cost = function() {
@@ -194,7 +194,7 @@ Coffee.small = function(coffeeObj) {
 };
 
 Coffee.medium = function(coffeeObj) {
-
+  // This constructor is left empty on purpose
 };
 
 Coffee.large = function(coffeeObj) {
@@ -309,3 +309,8 @@ Coffee.prototype = Object.create(Beverage.prototype);
 var coffee = new Coffee();
 coffee = var Small(coffee);
 coffee = var Sugar(coffee);
+
+
+/*###################################################################################################*/
+
+// The Basic Module Pattern

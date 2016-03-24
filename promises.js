@@ -17,7 +17,7 @@ $.ajax({
     // got the first response, let's go to the next one
     $.ajax({
       type: 'GET',
-      url: 'api2.json'
+      url: 'api2.json',
       success: function(data2) {
         
         response2 = JSON.stringify(data2);
@@ -125,7 +125,7 @@ Promise.coroutine(function* () {
   
 })().catch(function(errs) {
   //handle errors on any events
-})
+});
 
 //WHAT??!!!!!!  What just happened??
 //Every time you yield a value, it waits for that promise to resolve

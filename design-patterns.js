@@ -273,7 +273,7 @@ function Beverage() {
 
 Beverage.prototype.cost = function() {
   return this._cost;
-}
+};
 
 function BeverageDecorator(beverage) {
   Beverage.call(this);
@@ -285,14 +285,14 @@ BeverageDecorator.prototype.cost = function() {
   return this._cost + this.beverage.cost();
 };
 
-funciton Small(beverage) {
+function Small(beverage) {
   BeverageDecorator.call(this, beverage);
   this._cost = -1;
 }
 
 Small.prototype = Object.create(BeverageDecorator.prototype);
 
-funciton Sugar(beverage) {
+function Sugar(beverage) {
   BeverageDecorator.call(this, beverage);
   this._cost = .15;
 }
@@ -307,8 +307,8 @@ function Coffee() {
 Coffee.prototype = Object.create(Beverage.prototype);
 
 var coffee = new Coffee();
-coffee = var Small(coffee);
-coffee = var Sugar(coffee);
+coffee = new Small(coffee);
+coffee = new Sugar(coffee);
 
 
 /*###################################################################################################*/

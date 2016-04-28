@@ -3,8 +3,8 @@
 // Example 1
 var obj = {};
 
-obj.firstName = "Renzo";
-obj["lastName"] = "Gaspary";
+obj.firstName = "Renzo"; // This is the better way of declaring a child object.
+// obj['lastName'] = "Gaspary"; //['lastName'] is better written in dot notation.
 
 // Example 2
 Object.defineProperty(obj, "country", {
@@ -60,7 +60,7 @@ function Person(firstName, lastName) {
 // To solve this we need to use a prototype function outside the Person function.
 Person.prototype.sayName = function() {
   return "My name is " + this.firstName + " " + this.lastName;
-}
+};
 // Now every Person object created can share the same sayName function and use less memory.
 
 /*###################################################################################################*/
@@ -139,7 +139,7 @@ var arithmetic = {
   multiply: function() {
     return this.name + " is multiplying numbers together.";
   }
-}
+};
 
 // .extend is a jQuery function
 // $.extend(Person.prototype, speaker, mover, arithmetic);
@@ -209,7 +209,7 @@ Coffee.sugar = function(coffeeObj) {
   var cost = soffeeObj.cost();
 
   coffeeObj.cost = function() {
-    return cost + .15;
+    return cost + 0.15;
   };
 };
 
@@ -217,7 +217,7 @@ Coffee.creamer = function(coffeeObj) {
   var cost = soffeeObj.cost();
 
   coffeeObj.cost = function() {
-    return cost + .15;
+    return cost + 0.15;
   };
 };
 
@@ -225,7 +225,7 @@ Coffee.whippedCream = function(coffeeObj) {
   var cost = soffeeObj.cost();
 
   coffeeObj.cost = function() {
-    return cost + .15;
+    return cost + 0.15;
   };
 };
 
@@ -233,21 +233,21 @@ Coffee.milk = function(coffeeObj) {
   var cost = soffeeObj.cost();
 
   coffeeObj.cost = function() {
-    return cost + .15;
+    return cost + 0.15;
   };
 };
 Coffee.foam = function(coffeeObj) {
   var cost = soffeeObj.cost();
 
   coffeeObj.cost = function() {
-    return cost + .15;
+    return cost + 0.15;
   };
 };
 Coffee.chocolate = function(coffeeObj) {
   var cost = soffeeObj.cost();
 
   coffeeObj.cost = function() {
-    return cost + .15;
+    return cost + 0.15;
   };
 };
 
@@ -260,7 +260,7 @@ Coffee.mocha = function(coffeeObj) {
 
   coffeeObj.cost = function() {
       return cost;
-  }
+  };
 };
 
 var coffee = new Coffee();
@@ -294,7 +294,7 @@ Small.prototype = Object.create(BeverageDecorator.prototype);
 
 function Sugar(beverage) {
   BeverageDecorator.call(this, beverage);
-  this._cost = .15;
+  this._cost = 0.15;
 }
 
 Sugar.prototype = Object.create(BeverageDecorator.prototype);
@@ -313,4 +313,24 @@ coffee = new Sugar(coffee);
 
 /*###################################################################################################*/
 
-// The Basic Module Pattern
+// Module Design Pattern
+
+// JavaScript modules are the most prevalently used design patterns for keeping particular pieces of code independent of other components. This provides loose coupling to support well-structured code.
+
+var HTMLChanger = (function() {
+  var contents = 'contents';
+
+  var changeHTML = function() {
+    var element = document.getElementById('attribute-to-change');
+    element.innerHTML = contents;
+  };
+
+  return {
+    callChangeHTML: function() {
+        changeHTML();
+        console.log(contents);
+    }
+  };
+})();
+
+HTMLChanger.callChangeHTML(); //Outputs: 'contents'
